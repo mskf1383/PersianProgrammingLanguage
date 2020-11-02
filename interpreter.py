@@ -1,5 +1,4 @@
-from sys import argv
-
+import sys
 from libs.sly import Lexer, Parser
 
 class PPLLexer(Lexer):
@@ -156,10 +155,11 @@ class PPLExecute(object):
 		if node[0] == 'raw_input':
 			return '"' + input() + '"'
 		if node[0] == 'num_input':
-			try:
-				return int(input())
-			except TypeError:
-				return 0
+            in_ = input()
+            if in_.isdigit():
+                return int(in_)
+            else:
+                return 0
 		if node[0] == 'if_stmt':
 			result = self.walk_tree(node[1])
 			if result:
@@ -181,32 +181,32 @@ class PPLExecute(object):
 		if node[0] == 'addstr':
 			return str(self.walk_tree(node[1])) + str(self.walk_tree(node[2]))
 		elif node[0] == 'add':
-			try:
-				return int(self.walk_tree(node[1])) + int(self.walk_tree(node[2]))
-			except TypeError:
-				return 0
+            if type(node[1]) == str and node[1].isdigit():
+                return int(self.walk_tree(node[1])) + int(self.walk_tree(node[2]))
+            else:
+                return 0
 		elif node[0] == 'sub':
-			try:
-				return int(self.walk_tree(node[1])) - int(self.walk_tree(node[2]))
-			except TypeError:
-				return 0
+            if type(node[1]) == str and node[1].isdigit():
+                return int(self.walk_tree(node[1])) - int(self.walk_tree(node[2]))
+            else:
+                return 0
 		elif node[0] == 'mul':
-			try:
-				return int(self.walk_tree(node[1])) * int(self.walk_tree(node[2]))
-			except TypeError:
-				return 0
+            if type(node[1]) == str and node[1].isdigit():
+                return int(self.walk_tree(node[1])) * int(self.walk_tree(node[2]))
+            else:
+                return 0
 		elif node[0] == 'div':
-			try:
-				return int(self.walk_tree(node[1])) // int(self.walk_tree(node[2]))
-			except TypeError:
-				return 0
+            if type(node[1]) == str and node[1].isdigit():
+                return int(self.walk_tree(node[1])) // int(self.walk_tree(node[2]))
+            else:
+                return 0
 		if node[0] == 'var_assign':
 			self.env[node[1]] = self.walk_tree(node[2])
 			return node[1]
 		if node[0] == 'var':
-			try:
-				return self.env[node[1]]
-			except LookupError:
+            if node[1] in self.env:
+                return self.env[node[1]]
+			else:
 				print('undefined variable \'%s\'' % node[1])
 				return 0
 		if node[0] == 'for_loop':
@@ -226,20 +226,22 @@ if __name__ == '__main__':
 	lexer = PPLLexer()
 	parser = PPLParser()
 	env = {}
-	if len(argv) < 2:
+	if len(sys.argv) < 2:
 		while True:
 			terminal = input('Ferdosi >>> ')
-			if terminal == 'quit' or terminal == 'exit':
+			if terminal in ("exit", "quit"):
 				break
 			else:
 				tokens = lexer.tokenize(terminal)
 				tree = parser.parse(tokens)
 				PPLExecute(tree, env)
-	elif argv[1].endswith('.fd'):
-		with open(argv[1], encoding="utf-8") as f:
-			for line in f.read().splitlines():
+	elif sys.argv[1].endswith('.fd'):
+		with open(sys.argv[1], encoding="utf-8") as fp:
+            line = "# somecomment"
+			while line:
 				tokens = lexer.tokenize(line)
 				tree = parser.parse(tokens)
 				PPLExecute(tree, env)
+                line = fp.readline()
 	else:
 		print('باید فایل دارای پسوند fd باشد')
