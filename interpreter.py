@@ -3,7 +3,7 @@ from sys import argv
 from libs.sly import Lexer, Parser
 
 class PPLLexer(Lexer):
-	tokens = { FROM, DO, RUN, RAW_INPUT, NUM_INPUT, EQEQ, SHOMARANDE, NAME, NUMBER, STRING, IF, THEN, ELSE, FOR, TO, MEANS }
+	tokens = { FROM, DO, RUN, RAW_INPUT, NUM_INPUT, EQEQ, SHOMARANDE, NAME, NUMBER, STRING, IF, THEN, ELSE, FOR, TO, MEANS , PRINT}
 	ignore = '\t '
 
 	literals = { '=', '+', '-', '*', '/', '(', ')', ',', ';', '.' }
@@ -24,6 +24,7 @@ class PPLLexer(Lexer):
 	NUM_INPUT = r'عددگیر'
 	NAME = r'[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+'
 	STRING = r'"(""|.)*?"'
+	PRINT = r"چاپ_کن"
 
 	@_(r'\d+')
 	def NUMBER(self, t):
@@ -134,6 +135,10 @@ class PPLParser(Parser):
 	@_('STRING')
 	def expr(self, p):
 		return ('str', p.STRING)
+	
+	@_('PRINT expr')
+	def expr(self, p):
+		return ('print', p.expr)
 
 class PPLExecute(object):
 	def __init__(self, tree, env):
@@ -217,6 +222,10 @@ class PPLExecute(object):
 						print(res)
 		if node[0] == 'for_loop_setup':
 			return (self.walk_tree(node[1]), self.walk_tree(node[2]))
+		if node[0] == 'print':
+			result = self.walk_tree(node[1])
+			print(result)
+			return result
 
 if __name__ == '__main__':
 	lexer = PPLLexer()
