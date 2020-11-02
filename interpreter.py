@@ -224,9 +224,9 @@ if __name__ == '__main__':
 	env = {}
 	if len(argv) < 2:
 		while True:
-			terminal = input('Ferdosi >>> ')
+			terminal = input('فردوسی >>> ')
 			try:
-				if terminal == 'quit' or terminal == 'exit':
+				if terminal == 'خروج':
 					break
 				else:
 					tokens = lexer.tokenize(terminal)
@@ -234,7 +234,6 @@ if __name__ == '__main__':
 					PPLExecute(tree, env)
 			except:
 				print("دستور وارد شده نادرست است")
-				
 	elif argv[1].endswith('.fd'):
 		try:
 			with open(argv[1], encoding="utf-8") as f:
