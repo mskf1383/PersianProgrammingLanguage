@@ -2,7 +2,11 @@ import sys
 from libs.sly import Lexer, Parser
 
 class PPLLexer(Lexer):
-    tokens = { FROM, DO, RUN, RAW_INPUT, NUM_INPUT, EQEQ, SHOMARANDE, NAME, NUMBER, STRING, IF, THEN, ELSE, FOR, TO, MEANS }
+    tokens = {
+            FROM, DO, RUN, RAW_INPUT,
+            NUM_INPUT, EQEQ, SHOMARANDE, NAME, NUMBER,
+            STRING, IF, THEN, ELSE, FOR, TO, MEANS, PRINT
+    }
     ignore = '\t '
 
     literals = { '=', '+', '-', '*', '/', '(', ')', ',', ';', '.' }
@@ -23,17 +27,14 @@ class PPLLexer(Lexer):
     NUM_INPUT = r'عددگیر'
     NAME = r'[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+'
     STRING = r'"(""|.)*?"'
+    PRINT = r"چاپ_کن"
 
     @_(r'\d+')
     def NUMBER(self, t):
         t.value = int(t.value)
         return t
 
-    @_(r'#.*')
-    def COMMENT(self, t):
-        pass
-    
-    @_(r'//.*')
+    @_(r'#.*', r'//.*')
     def COMMENT(self, t):
         pass
 
@@ -137,6 +138,10 @@ class PPLParser(Parser):
     @_('STRING')
     def expr(self, p):
         return ('str', p.STRING)
+    
+    @_('PRINT expr')
+    def expr(self, p):
+        return ('print', p.expr)
 
 class PPLExecute(object):
     def __init__(self, tree, env, output=print, input_=input):
@@ -249,6 +254,10 @@ class PPLExecute(object):
                         self._out(res)
         if node[0] == 'for_loop_setup':
             return (self.walk_tree(node[1]), self.walk_tree(node[2]))
+        if node[0] == 'print':
+            result = self.walk_tree(node[1])
+            self._out(result)
+            return result
 
 if __name__ == '__main__':
     lexer = PPLLexer()
@@ -264,12 +273,22 @@ if __name__ == '__main__':
                 tree = parser.parse(tokens)
                 PPLExecute(tree, env)
     elif sys.argv[1].endswith('.fd'):
+        if not os.path.exists(sys.argv[1]):
+            print("این فایل وجود ندارد")
+            sys.exit(1)
+        if os.path.isdir(sys.argv[1]):
+            print("این یک پوشه هست و نه فایل")
+            sys.exit(1)
         with open(sys.argv[1], encoding="utf-8") as fp:
             line = "# somecomment"
             while line:
-                tokens = lexer.tokenize(line)
-                tree = parser.parse(tokens)
-                PPLExecute(tree, env)
-                line = fp.readline()
+                try:
+                    tokens = lexer.tokenize(line)
+                    tree = parser.parse(tokens)
+                    PPLExecute(tree, env)
+                    line = fp.readline()
+                except:
+                    print(f"خطا در خط: {line}")
+                    sys.exit(1)
     else:
-        print('باید فایل دارای پسوند fd باشد')
+        print('فایل باید دارای پسوند fd باشد')
