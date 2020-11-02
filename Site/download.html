@@ -1,0 +1,156 @@
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>فردوسی - دانلود</title>
+    <!-- Includes -->
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/fontawesome/css/all.css" />
+    <script src="css/fontawesome/js/all.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="css/animate.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-social.css" />
+    <link rel="stylesheet" href="css/adownload.css" />
+  </head>
+  <body>
+    <!-- Top button -->
+    <div id="myBtn" onclick="topFunction()">
+      <i class="fas fa-arrow-alt-circle-up"></i>
+    </div>
+    <!-- menu bar start -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <a class="navbar-brand" href="#">فردوسی</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="a.html">خانه</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="adownload.html"
+              >دانلود<span class="sr-only">(current)</span></a
+            >
+          </li>
+          <!-- <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href=""
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              مقالات
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-left"
+              aria-labelledby="navbarDropdown"
+            >
+              <a class="dropdown-item" href="#">برنامه نویسی</a>
+              <a class="dropdown-item" href="#">طراحی وب</a>
+              <a class="dropdown-item" href="#">بازی سازی</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 mr-auto">
+          <input
+            class="form-control mr-sm-2 placholder"
+            type="search"
+            placeholder="دنبال چی میگردی؟"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            جستجو
+          </button>
+        </form> -->
+      </div>
+    </nav>
+    <br />
+    <br />
+    <!-- menu bar end -->
+    <div class="container fl-dr-col center-par">
+      <div class="title center-par">
+        <img class="Logo" src="images/Logo.jpg" alt="Logo" width="200px" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-5 stable center-par fl-dr-col p-4">
+        <h2 class="md-4">Stable Version</h2>
+        <div class="row">
+          <div class="buttons">
+            <button type="button" class="btn btn-success">
+              0.0.1
+              <br />
+              stable
+            </button>
+            <button type="button" class="btn btn-success">
+              0.0.1.5
+              <br />
+              stable
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-2">
+        <a class="btn btn-social btn-github mt-3 btn-block center-par">
+          <img src="images/Github.png" />
+          گیت هاب :)
+        </a>
+        <a class="btn btn-social btn-google mt-1 btn-block center-par">
+          <img src="https://img.icons8.com/plasticine/100/000000/youtube.png" />
+          یوتوب :)
+        </a>
+        <a class="btn btn-social btn-facebook mt-1 btn-block center-par">
+          <span>و</span>
+          ویرگول :)
+        </a>
+      </div>
+      <div class="col-5 beta center-par fl-dr-col p-4">
+        <h2 class="md-4">Beta Version</h2>
+        <div class="row">
+          <div class="buttons">
+            <button type="button" class="btn btn-success">
+              0.0.1
+              <br />
+              beta
+            </button>
+            <button type="button" class="btn btn-success">
+              0.0.2
+              <br />
+              beta
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/top-button.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/simple-anim.js"></script>
+  <script>
+    var a = document.querySelector("#myBtn");
+    a.addEventListener("mouseover", () => {
+      a.classList.add("animate__animated", "animate__flip");
+      setTimeout(() => {
+        a.classList.remove("animate__animated", "animate__flip");
+      }, 1000);
+    });
+  </script>
+</html>
