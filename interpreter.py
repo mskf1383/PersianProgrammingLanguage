@@ -3,7 +3,7 @@ from sys import argv
 from libs.sly import Lexer, Parser
 
 class PPLLexer(Lexer):
-	tokens = { FROM, DO, RUN, RAW_INPUT, NUM_INPUT, EQEQ, SHOMARANDE, NAME, NUMBER, STRING, IF, THEN, ELSE, FOR, TO, MEANS }
+	tokens = { FROM, DO, RUN, RAW_INPUT, NUM_INPUT, EQEQ, SHOMARANDE, NAME, NUMBER, STRING, IF, THEN, ELSE, FOR, TO, MEANS , PRINT}
 	ignore = '\t '
 
 	literals = { '=', '+', '-', '*', '/', '(', ')', ',', ';', '.' }
@@ -24,6 +24,7 @@ class PPLLexer(Lexer):
 	NUM_INPUT = r'عددگیر'
 	NAME = r'[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+'
 	STRING = r'"(""|.)*?"'
+	PRINT = r"چاپ_کن"
 
 	@_(r'\d+')
 	def NUMBER(self, t):
@@ -136,6 +137,10 @@ class PPLParser(Parser):
 		return ('num', p.NUMBER)
 
 	@_('STRING')
+	def expr(self, p):
+		return ('str', p.STRING)
+	
+	@_('PRINT')
 	def expr(self, p):
 		return ('str', p.STRING)
 
