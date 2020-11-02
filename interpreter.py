@@ -140,9 +140,9 @@ class PPLParser(Parser):
 	def expr(self, p):
 		return ('str', p.STRING)
 	
-	@_('PRINT')
+	@_('PRINT expr')
 	def expr(self, p):
-		return ('str', p.STRING)
+		return ('print', p.expr)
 
 class PPLExecute(object):
 	def __init__(self, tree, env):
@@ -226,6 +226,10 @@ class PPLExecute(object):
 						print(res)
 		if node[0] == 'for_loop_setup':
 			return (self.walk_tree(node[1]), self.walk_tree(node[2]))
+		if node[0] == 'print':
+			result = self.walk_tree(node[1])
+			print(result)
+			return result
 
 if __name__ == '__main__':
 	lexer = PPLLexer()
