@@ -1,54 +1,100 @@
-# Persian Programming Language
-a simple persian programming language written in python
-## instructions
-To interpret run this command on console:
+<div dir="rtl">
+  
+# زبان برنامه نویسی فردوسی
+یک زبان برنامه نویسی ساده؛ نوشته شده با پایتون
+## روش استفاده
+:برای تفسیر دستور زیر را در خط فرمان وارد کنید
+</div>
+
 ```
-python3 interpreter.py <file adress>
+python3 interpreter.py <آدرس فایل>
 ```
-Warning : File should be have .fd format
-For example:
+
+<div dir="rtl">
+  
+توجه: فایل باید دارای پسوند .fd باشد
+
+برای مثال:
+</div>
+
 ```
 python3 interpreter.py examples/helloworld.fd
 ```
-If you do not have file , You can programming live with Terminal:
+<div dir="rtl">
+
+:اگر در حال حاضر فایلی ندارید، می‌توانید به طور زنده در ترمینال برنامه نویسی کنید
+</div>
+  
 ```
 python3 interpreter.py
 ```
-## Examples
-### hello world
+<div dir="rtl">
+  
+## مثال‌ها
+### سلام دنیا
+</div>
+
 ```plain
 "سلام، دنیا!"
 ```
-### print
+<div dir="rtl">
+  
+### چاپ
+</div>
+
 ```plain
 "چاپ کن "سلام دنیا
 ```
-### if else
+  <div dir="rtl">
+  
+### شرط‌ها
+</div>
+
 ```plain
 اگر 12 برابر 10 + 2 باشد آنگاه "ده با دو میشود دوازده" وگرنه "ده با دو نمیشود دوازده"
 ```
-### user input
+<div dir="rtl">
+    
+### ورودی
+</div>
+
 ```plain
 عدد = عددگیر
 نام = ورودی
 ```
-### comments
+<div dir="rtl">
+
+### کامنت‌ها
+</div>
+
 ```plain
 # این یک کامنت است
 # کامنت ها برنامه را تغییر نمیدهند
 ```
-### divisor
+<div dir="rtl">
+
+### شمارنده
+</div>
+
 ```plain
 اگر 5 شمارنده 10 باشد آنگاه "درسته" وگرنه "غلطه"
 ```
-### functions
+<div dir="rtl">
+
+### تابع‌ها
+</div>
+
 ```plain
 زوج_فرد یعنی اگر 2 شمارنده عدد باشد آنگاه "زوج" وگرنه "فرد"
 
 عدد = 15
 زوج_فرد را اجرا کن
 ```
-### operators
+<div dir="rtl">
+  
+### عملگرها
+</div>
+
 ```plain
 اول = 10
 دوم = 2
@@ -60,5 +106,7 @@ python3 interpreter.py
 ```
 
 * * *
+<div dir="rtl">
 
-**This Interpreter Made Using [SLY](https://sly.readthedocs.io/en/latest/sly.html)**
+**این مفسر به وسیله [SLY](https://sly.readthedocs.io/en/latest/sly.html) ساخته شده است**
+</div>
