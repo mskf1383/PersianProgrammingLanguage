@@ -12,7 +12,7 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
     <link rel="stylesheet" href="css/animate.min.css" />
-    <link rel="stylesheet" href="css/a.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <!-- Top button -->
@@ -84,15 +84,15 @@
     <!-- menu bar end -->
     <div class="container fl-dr-col center-par">
       <div class="title center-par">
-        <h1>فردوسی</h1>
+        <h1 class="anim animate__backInLeft">فردوسی</h1>
       </div>
-      <div class="descript mt-5 center-par fl-dr-col">
+      <div class="descript mt-5 center-par fl-dr-col class="anim animate__backInLeft">
         <h4>تا حالا فکر کردی می شه فارسی برنامه نویسی کرد ؟</h4>
         <h4>اصلا می خواهی برنامه نویس بشی ؟</h4>
       </div>
       <div class="buttons mt-3">
-        <button type="button" name="" id="" class="btn btn-success">همین الان شروع کن</button>
-        <button type="button" name="" id="" class="btn btn-primary">چرا فردوسی ؟</button>
+        <button type="button" name="" id="" class="btn btn-success anim animate__fadeInRight">همین الان شروع کن</button>
+        <button type="button" name="" id="" class="btn btn-primary anim animate__rollIn">چرا فردوسی ؟</button>
       </div>
     </div>
   </body>
@@ -109,5 +109,6 @@
         a.classList.remove("animate__animated", "animate__flip");
       }, 1000);
     });
+    $('.anim').classList.add('wow','animate__animate')
   </script>
 </html>
