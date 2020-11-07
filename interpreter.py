@@ -3,7 +3,7 @@ from sys import argv
 from libs.sly import Lexer, Parser
 
 class PPLLexer(Lexer):
-	tokens = { FROM, DO, RUN, RAW_INPUT, NUM_INPUT, EQEQ, SHOMARANDE, NAME, NUMBER, STRING, IF, THEN, ELSE, FOR, TO, MEANS }
+	tokens = { FROM, DO, RUN, RAW_INPUT, NUM_INPUT, EQEQ, SHOMARANDE, NAME, NUMBER, STRING, IF, THEN, ELSE, FOR, TO, MEANS , PRINT}
 	ignore = '\t '
 
 	literals = { '=', '+', '-', '*', '/', '(', ')', ',', ';', '.' }
@@ -24,13 +24,14 @@ class PPLLexer(Lexer):
 	NUM_INPUT = r'عددگیر'
 	NAME = r'[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+'
 	STRING = r'"(""|.)*?"'
+	PRINT = r"چاپ_کن"
 
 	@_(r'\d+')
 	def NUMBER(self, t):
 		t.value = int(t.value)
 		return t
 
-	@_(r'#.*')
+	@_(r'#.*', r'//.*')
 	def COMMENT(self, t):
 		pass
 
@@ -134,6 +135,10 @@ class PPLParser(Parser):
 	@_('STRING')
 	def expr(self, p):
 		return ('str', p.STRING)
+	
+	@_('PRINT expr')
+	def expr(self, p):
+		return ('print', p.expr)
 
 class PPLExecute(object):
 	def __init__(self, tree, env):
@@ -217,15 +222,40 @@ class PPLExecute(object):
 						print(res)
 		if node[0] == 'for_loop_setup':
 			return (self.walk_tree(node[1]), self.walk_tree(node[2]))
+		if node[0] == 'print':
+			result = self.walk_tree(node[1])
+			print(result)
+			return result
 
 if __name__ == '__main__':
 	lexer = PPLLexer()
 	parser = PPLParser()
 	env = {}
 	if len(argv) < 2:
-		print('باید آدرس فایل برنامه را به‌عنوان آرگومنت به برنامه بدهید.')
-	with open(argv[1], encoding="utf-8") as f:
-		for line in f.read().splitlines():
-			tokens = lexer.tokenize(line)
-			tree = parser.parse(tokens)
-			PPLExecute(tree, env)
+		while True:
+			terminal = input('فردوسی >>> ')
+			try:
+				if terminal == 'خروج':
+					break
+				else:
+					tokens = lexer.tokenize(terminal)
+					tree = parser.parse(tokens)
+					PPLExecute(tree, env)
+			except:
+				print("دستور وارد شده نادرست است")
+	elif argv[1].endswith('.fd'):
+		try:
+			with open(argv[1], encoding="utf-8") as f:
+				for line in f.read().splitlines():
+					try:
+						tokens = lexer.tokenize(line)
+						tree = parser.parse(tokens)
+						PPLExecute(tree, env)
+					except:
+						print("دستور نادرست: %s" % line)
+						quit()
+		except:
+			print("فایل مورد نظر وجود ندارد")
+			
+	else:
+		print('فایل باید دارای پسوند fd باشد')
