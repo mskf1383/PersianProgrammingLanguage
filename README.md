@@ -35,11 +35,12 @@ python3 interpreter.py
 
 ## مثال‌ها
 ### سلام دنیا
-</div>
 
-```plain
+
+`
 "سلام، دنیا!"
-```
+`
+</div>
 <div dir="rtl">
   
 ### چاپ
