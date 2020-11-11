@@ -37,9 +37,9 @@ python3 interpreter.py
 ### سلام دنیا
 
 
-`
+```
 "سلام، دنیا!"
-`
+```
 </div>
 <div dir="rtl">
   
